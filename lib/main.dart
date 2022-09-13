@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
                 height: 20,
               ),
-              Screenshot(child: Text("ASDFG"), controller: screenshotController)
+              Screenshot(child: Text("I want to print this text"), controller: screenshotController)
             ],
           ),
         ],
