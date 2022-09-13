@@ -109,8 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   screenshotController
                       .capture(delay: const Duration(milliseconds: 10))
                       .then((capturedImage) async {
-                    theimageThatComesfromThePrinter = capturedImage!;
                     setState(() {
+                      theimageThatComesfromThePrinter = capturedImage!;
                       theimageThatComesfromThePrinter = capturedImage;
                       testPrint(Printer.text, theimageThatComesfromThePrinter);
                     });
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
                 height: 20,
               ),
-              Screenshot(child: Text("I want to print this text"), controller: screenshotController)
+              Screenshot(child: Text("AASDFA"), controller: screenshotController),
             ],
           ),
         ],
