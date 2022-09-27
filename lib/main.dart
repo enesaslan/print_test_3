@@ -81,11 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  TextEditingController Printer = TextEditingController(text: "192.168.1.198");
+  TextEditingController Printer = TextEditingController(text: "10.10.10.35");
   TextEditingController qrController1 = TextEditingController();
   TextEditingController qrController2 = TextEditingController();
   TextEditingController qrController3 = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -103,40 +102,40 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 20,
               ),
               MyCustomTextBox(
-              hintText: "Printer IP",
-              textBoxController: Printer,
-              inputAction: TextInputAction.next,
-            ),
+                hintText: "Printer IP",
+                textBoxController: Printer,
+                inputAction: TextInputAction.next,
+              ),
               const SizedBox(
                 height: 10,
               ),
               MyCustomTextBox(
-              hintText: "QR 1",
-              textBoxController: qrController1,
-              inputAction: TextInputAction.next,
-            ),
-            const SizedBox(
+                hintText: "QR 1",
+                textBoxController: qrController1,
+                inputAction: TextInputAction.next,
+              ),
+              const SizedBox(
                 height: 10,
               ),
-            MyCustomTextBox(
-              hintText: "QR 2",
-              textBoxController: qrController2,
-              inputAction: TextInputAction.next,
-            ),
-            const SizedBox(
+              MyCustomTextBox(
+                hintText: "QR 2",
+                textBoxController: qrController2,
+                inputAction: TextInputAction.next,
+              ),
+              const SizedBox(
                 height: 10,
               ),
-            MyCustomTextBox(
-              hintText: "QR 3",
-              textBoxController: qrController3,
-              inputAction: TextInputAction.done,
-            ),
+              MyCustomTextBox(
+                hintText: "QR 3",
+                textBoxController: qrController3,
+                inputAction: TextInputAction.done,
+              ),
               const SizedBox(
                 height: 10,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.height * 0.06,
+                height: MediaQuery.of(context).size.height * 0.06,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Color(0xFF143d54)),
                   child: const Text(
@@ -150,7 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       setState(() {
                         theimageThatComesfromThePrinter = capturedImage!;
                         theimageThatComesfromThePrinter = capturedImage;
-                        testPrint(Printer.text, theimageThatComesfromThePrinter);
+                        testPrint(
+                            Printer.text, theimageThatComesfromThePrinter);
                       });
                     }).catchError((onError) {
                       print(onError);
@@ -163,6 +163,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 20,
               ),
               Screenshot(
+                  child:Column(
+                    children: [
+                      Text("data"),
+                      Text("data"),
+                      Text("data"),
+                      Text("data"),
+                      Text("data"),
+                    ],
+                  ),
+                  controller: screenshotController)
+            ],
+          ),
+        ],
+      )),
+    );
+  }
+}
+
+
+/*
+
+Screenshot(
                   child: Container(
               color: Colors.lightBlueAccent[100],
               width: MediaQuery.of(context).size.width*0.9,
@@ -217,13 +239,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
                   controller: screenshotController),
-            ],
-          ),
-        ],
-      )),
-    );
-  }
-}
+
+*/
+
+
 
 /*
 
