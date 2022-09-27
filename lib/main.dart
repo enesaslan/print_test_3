@@ -9,6 +9,7 @@ import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'dart:io';
 
 import 'ImagestorByte.dart';
+import 'widgets/mycustomtextbox.dart';
 
 void main() {
   runApp(const MyApp());
@@ -80,7 +81,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  TextEditingController Printer = TextEditingController(text: "192.168.1.19");
+  TextEditingController Printer = TextEditingController(text: "192.168.1.198");
+  TextEditingController qrController1 = TextEditingController();
+  TextEditingController qrController2 = TextEditingController();
+  TextEditingController qrController3 = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,37 +99,124 @@ class _MyHomePageState extends State<MyHomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                controller: Printer,
-                decoration: const InputDecoration(hintText: "printer ip"),
+              const SizedBox(
+                height: 20,
               ),
+              MyCustomTextBox(
+              hintText: "Printer IP",
+              textBoxController: Printer,
+              inputAction: TextInputAction.next,
+            ),
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                child: const Text(
-                  'Yazdır',
-                  style: TextStyle(fontSize: 40),
-                ),
-                onPressed: () {
-                  screenshotController
-                      .capture(delay: const Duration(milliseconds: 10))
-                      .then((capturedImage) async {
-                    setState(() {
-                      theimageThatComesfromThePrinter = capturedImage!;
-                      theimageThatComesfromThePrinter = capturedImage;
-                      testPrint(Printer.text, theimageThatComesfromThePrinter);
+              MyCustomTextBox(
+              hintText: "QR 1",
+              textBoxController: qrController1,
+              inputAction: TextInputAction.next,
+            ),
+            const SizedBox(
+                height: 10,
+              ),
+            MyCustomTextBox(
+              hintText: "QR 2",
+              textBoxController: qrController2,
+              inputAction: TextInputAction.next,
+            ),
+            const SizedBox(
+                height: 10,
+              ),
+            MyCustomTextBox(
+              hintText: "QR 3",
+              textBoxController: qrController3,
+              inputAction: TextInputAction.done,
+            ),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.height * 0.06,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Color(0xFF143d54)),
+                  child: const Text(
+                    'Print',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  onPressed: () {
+                    screenshotController
+                        .capture(delay: const Duration(milliseconds: 10))
+                        .then((capturedImage) async {
+                      setState(() {
+                        theimageThatComesfromThePrinter = capturedImage!;
+                        theimageThatComesfromThePrinter = capturedImage;
+                        testPrint(Printer.text, theimageThatComesfromThePrinter);
+                      });
+                    }).catchError((onError) {
+                      print(onError);
                     });
-                  }).catchError((onError) {
-                    print(onError);
-                  });
-                },
+                  },
+                ),
               ),
               Divider(
                 color: Colors.transparent,
                 height: 20,
               ),
-              Screenshot(child: Text("AASDFA"), controller: screenshotController),
+              Screenshot(
+                  child: Container(
+              color: Colors.lightBlueAccent[100],
+              width: MediaQuery.of(context).size.width*0.9,
+              height: MediaQuery.of(context).size.height*0.2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        "QR 1",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05),
+                      ),
+                      QrImage(
+                        data: qrController1.text,
+                        version: QrVersions.auto,
+                        size: 100,
+                        gapless: false,
+                      )
+                    ],
+                  ),Column(
+                    children: [
+                      Text(
+                        "QR 2",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05),
+                      ),
+                      QrImage(
+                        data: qrController2.text,
+                        version: QrVersions.auto,
+                        size: 100,
+                        gapless: false,
+                      )
+                    ],
+                  ),Column(
+                    children: [
+                      Text(
+                        "QR 3",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05),
+                      ),
+                      QrImage(
+                        data: qrController3.text,
+                        version: QrVersions.auto,
+                        size: 100,
+                        gapless: false,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+                  controller: screenshotController),
             ],
           ),
         ],
