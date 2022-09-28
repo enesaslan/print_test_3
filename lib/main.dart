@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  TextEditingController Printer = TextEditingController(text: "10.10.10.35");
+  TextEditingController Printer = TextEditingController(text: "192.168.1.198");
   TextEditingController qrController1 = TextEditingController();
   TextEditingController qrController2 = TextEditingController();
   TextEditingController qrController3 = TextEditingController();
@@ -162,17 +162,71 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
                 height: 20,
               ),
-              Screenshot(
-                  child:Column(
-                    children: [
-                      Text("data"),
-                      Text("data"),
-                      Text("data"),
-                      Text("data"),
-                      Text("data"),
-                    ],
-                  ),
-                  controller: screenshotController)
+              Card(
+                elevation: 20,
+                child: Screenshot(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "QR 1",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController1.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "QR 2",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController2.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "QR 3",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController3.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    controller: screenshotController),
+              ),
             ],
           ),
         ],
@@ -180,117 +234,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-/*
-
-Screenshot(
-                  child: Container(
-              color: Colors.lightBlueAccent[100],
-              width: MediaQuery.of(context).size.width*0.9,
-              height: MediaQuery.of(context).size.height*0.2,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        "QR 1",
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                      QrImage(
-                        data: qrController1.text,
-                        version: QrVersions.auto,
-                        size: 100,
-                        gapless: false,
-                      )
-                    ],
-                  ),Column(
-                    children: [
-                      Text(
-                        "QR 2",
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                      QrImage(
-                        data: qrController2.text,
-                        version: QrVersions.auto,
-                        size: 100,
-                        gapless: false,
-                      )
-                    ],
-                  ),Column(
-                    children: [
-                      Text(
-                        "QR 3",
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.05),
-                      ),
-                      QrImage(
-                        data: qrController3.text,
-                        version: QrVersions.auto,
-                        size: 100,
-                        gapless: false,
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-                  controller: screenshotController),
-
-*/
-
-
-
-/*
-
-Screenshot(
-                controller: screenshotController,
-                child: Container(
-
-                  color: Colors.yellowAccent,
-                  width: MediaQuery.of(context).size.width*0.95,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Text("Bilgi 1"),
-                          QrImage(
-                            data: 'Bilgi123456789',
-                            version: QrVersions.auto,
-                            size: 100,
-                            gapless: false,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text("Bilgi 2"),
-                          QrImage(
-                            data: 'Bilgi 2',
-                            version: QrVersions.auto,
-                            size: 100,
-                            gapless: false,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text("Bilgi 3"),
-                          QrImage(
-                            data: 'Bilgi 3',
-                            version: QrVersions.auto,
-                            size: 100,
-                            gapless: false,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-*/
