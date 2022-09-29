@@ -2,12 +2,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:print_test_3/printer.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
 import 'package:screenshot/screenshot.dart';
 import 'package:esc_pos_printer/esc_pos_printer.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'dart:io';
-
 import 'ImagestorByte.dart';
 import 'widgets/mycustomtextbox.dart';
 
@@ -63,8 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void testPrint(String printerIp, Uint8List theimageThatComesfr) async {
     print("im inside the test print 2");
     // TODO Don't forget to choose printer's paper size
-    const PaperSize paper = PaperSize.mm80;
-    PaperSize kagit = PaperSize.mm58;
+    const PaperSize paper = PaperSize.mm58;
+
     final profile = await CapabilityProfile.load();
     final printer = NetworkPrinter(paper, profile);
 
@@ -85,6 +83,23 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController qrController1 = TextEditingController();
   TextEditingController qrController2 = TextEditingController();
   TextEditingController qrController3 = TextEditingController();
+
+  Future<dynamic> ShowCapturedWidget(
+      BuildContext context, Uint8List capturedImage) {
+    return showDialog(
+      useSafeArea: false,
+      context: context,
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text("Captured widget screenshot"),
+        ),
+        body: Center(
+            child: capturedImage != null
+                ? Image.memory(capturedImage)
+                : Container()),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,11 +159,97 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: () {
                     screenshotController
-                        .capture(delay: const Duration(milliseconds: 10))
+                        .captureFromWidget(
+                            InheritedTheme.captureAll(
+                                context,
+                                Material(
+                                  child: Column(children: [
+                                    Text("data"),
+                                    Text("data"),
+                                    Text("data"),
+                                    Text("data"),
+                                  ],)
+                                  /*
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.2,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "QR 1",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05),
+                                            ),
+                                            QrImage(
+                                              data: qrController1.text,
+                                              version: QrVersions.auto,
+                                              size: 100,
+                                              gapless: false,
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "QR 2",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05),
+                                            ),
+                                            QrImage(
+                                              data: qrController2.text,
+                                              version: QrVersions.auto,
+                                              size: 100,
+                                              gapless: false,
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "QR 3",
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05),
+                                            ),
+                                            QrImage(
+                                              data: qrController3.text,
+                                              version: QrVersions.auto,
+                                              size: 100,
+                                              gapless: false,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  */
+                                )),
+                            delay: Duration(seconds: 1))
                         .then((capturedImage) async {
                       setState(() {
-                        theimageThatComesfromThePrinter = capturedImage!;
                         theimageThatComesfromThePrinter = capturedImage;
+
+                        //show captured widget
+                        ShowCapturedWidget(
+                            context, theimageThatComesfromThePrinter);
+                        //Print Widget
                         testPrint(
                             Printer.text, theimageThatComesfromThePrinter);
                       });
@@ -162,10 +263,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
                 height: 20,
               ),
+              /*
               Card(
                 elevation: 20,
                 child: Screenshot(
-                    child: Container(
+                    child: FlutterLogo(size: 200),
+                    controller: screenshotController),
+              ),
+              */
+            ],
+          ),
+        ],
+      )),
+    );
+  }
+}
+
+
+/*
+
+Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: Row(
@@ -225,12 +342,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    controller: screenshotController),
-              ),
-            ],
-          ),
-        ],
-      )),
-    );
-  }
-}
+
+*/
+
+/*
+
+.capture(delay: const Duration(milliseconds: 10))
+                        .then((capturedImage) async {
+                      setState(() {
+                        theimageThatComesfromThePrinter = capturedImage!;
+                        theimageThatComesfromThePrinter = capturedImage;
+                        testPrint(
+                            Printer.text, theimageThatComesfromThePrinter);
+                      });
+                    }).catchError((onError) {
+                      print(onError);
+                    });
+
+*/
