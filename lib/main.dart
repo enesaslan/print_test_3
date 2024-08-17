@@ -159,96 +159,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onPressed: () {
                     screenshotController
-                        .captureFromWidget(
-                            InheritedTheme.captureAll(
-                                context,
-                                Material(
-                                  child: Column(children: [
-                                    Text("data"),
-                                    Text("data"),
-                                    Text("data"),
-                                    Text("data"),
-                                  ],)
-                                  /*
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.2,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "QR 1",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05),
-                                            ),
-                                            QrImage(
-                                              data: qrController1.text,
-                                              version: QrVersions.auto,
-                                              size: 100,
-                                              gapless: false,
-                                            )
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "QR 2",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05),
-                                            ),
-                                            QrImage(
-                                              data: qrController2.text,
-                                              version: QrVersions.auto,
-                                              size: 100,
-                                              gapless: false,
-                                            )
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "QR 3",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      MediaQuery.of(context)
-                                                              .size
-                                                              .width *
-                                                          0.05),
-                                            ),
-                                            QrImage(
-                                              data: qrController3.text,
-                                              version: QrVersions.auto,
-                                              size: 100,
-                                              gapless: false,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  */
-                                )),
-                            delay: Duration(seconds: 1))
+                        .capture(delay: Duration(milliseconds: 20))
                         .then((capturedImage) async {
+                      theimageThatComesfromThePrinter = capturedImage!;
+
                       setState(() {
                         theimageThatComesfromThePrinter = capturedImage;
 
                         //show captured widget
-                        ShowCapturedWidget(
-                            context, theimageThatComesfromThePrinter);
+                        // ShowCapturedWidget( context, theimageThatComesfromThePrinter);
                         //Print Widget
                         testPrint(
                             Printer.text, theimageThatComesfromThePrinter);
@@ -263,14 +182,71 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.transparent,
                 height: 20,
               ),
-              /*
               Card(
                 elevation: 20,
                 child: Screenshot(
-                    child: FlutterLogo(size: 200),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                "QR 1",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController1.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "QR 2",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController2.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "QR 3",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.05),
+                              ),
+                              QrImage(
+                                data: qrController3.text,
+                                version: QrVersions.auto,
+                                size: 100,
+                                gapless: false,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     controller: screenshotController),
               ),
-              */
             ],
           ),
         ],
@@ -282,8 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 /*
 
-Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
+Container(  width: MediaQuery.of(context).size.width * 0.9,
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
